@@ -5,8 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Connectix — Discord Bot</title>
+    <meta
+        name="description"
+        content="Connectix est un bot Discord dédié à la gestion d'activité des serveurs RP."
+    >
 
     <style>
+        :root {
+            --bg: #070d18;
+            --bg-soft: #0b1322;
+            --card: rgba(16, 28, 48, 0.78);
+            --card-hover: rgba(22, 39, 66, 0.92);
+            --border: rgba(117, 158, 220, 0.18);
+            --border-strong: rgba(117, 158, 220, 0.34);
+            --text: #f7f9fc;
+            --muted: #9eabc0;
+            --blue: #76a9ff;
+            --blue-strong: #4e8df7;
+            --green: #55d98a;
+            --shadow: 0 25px 80px rgba(0, 0, 0, 0.34);
+        }
+
         * {
             box-sizing: border-box;
         }
@@ -17,247 +36,651 @@
 
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #0b1220;
-            color: #f5f7fa;
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(62, 119, 212, 0.10), transparent 28%),
+                radial-gradient(circle at 85% 35%, rgba(47, 97, 181, 0.08), transparent 30%),
+                var(--bg);
+            color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* =========================
-           HEADER
-        ========================= */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+            background-size: 45px 45px;
+            mask-image: linear-gradient(to bottom, black, transparent 80%);
+        }
 
-        header {
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        /* SCROLL BAR */
+
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue), #9ec1ff);
+            z-index: 1000;
+            box-shadow: 0 0 18px rgba(118, 169, 255, 0.7);
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1180px, calc(100% - 28px));
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(8, 15, 28, 0.72);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.22);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+        }
+
+        .brand img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .brand-text strong {
+            display: block;
+            font-size: 15px;
+        }
+
+        .brand-text span {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .nav-links a {
+            padding: 9px 13px;
+            border-radius: 11px;
+            color: #cdd7e7;
+            font-size: 14px;
+            transition: 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+            background: rgba(118, 169, 255, 0.10);
+        }
+
+        .mobile-menu {
+            display: none;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.04);
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        /* HERO */
+
+        .hero {
             position: relative;
-            min-height: 430px;
+            min-height: 850px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 80px 25px;
-            background:
-                radial-gradient(
-                    circle at center,
-                    #172640 0%,
-                    #111b2e 45%,
-                    #0b1220 100%
-                );
-            border-bottom: 1px solid #24344f;
+            padding: 150px 22px 100px;
             overflow: hidden;
         }
 
-        header::before {
-            content: "";
+        .hero-orb {
             position: absolute;
-            width: 500px;
-            height: 500px;
-            background: #315b9b;
-            opacity: 0.08;
+            width: 560px;
+            height: 560px;
             border-radius: 50%;
-            filter: blur(100px);
+            background: rgba(58, 119, 220, 0.13);
+            filter: blur(90px);
+            animation: float 8s ease-in-out infinite;
         }
 
-        .logo {
-            position: absolute;
-            top: 25px;
-            right: 30px;
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            z-index: 2;
+        .hero-orb.one {
+            top: -220px;
+            left: -150px;
         }
 
-        .header-content {
+        .hero-orb.two {
+            right: -220px;
+            bottom: -250px;
+            background: rgba(45, 91, 169, 0.10);
+            animation-delay: -3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate3d(0, 0, 0);
+            }
+            50% {
+                transform: translate3d(0, 25px, 0);
+            }
+        }
+
+        .hero-content {
             position: relative;
-            max-width: 750px;
-            z-index: 1;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin: 0 auto 24px;
+            filter: drop-shadow(0 20px 35px rgba(45, 96, 190, 0.22));
+            animation: logoIn 0.8s ease forwards;
+        }
+
+        @keyframes logoIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(0.94);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .badge {
-            display: inline-block;
-            margin-bottom: 20px;
-            padding: 7px 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border: 1px solid var(--border-strong);
             border-radius: 999px;
-            background: #172640;
-            border: 1px solid #29446b;
-            color: #8db9ff;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .header-content h1 {
-            margin: 0;
-            font-size: 64px;
+            color: #b8d0ff;
+            background: rgba(35, 66, 112, 0.22);
+            font-size: 13px;
             font-weight: 700;
-            letter-spacing: -2px;
+            margin-bottom: 20px;
         }
 
-        .header-content p {
-            margin: 15px 0 0;
-            color: #aeb9ca;
-            font-size: 20px;
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 12px rgba(85, 217, 138, 0.8);
         }
 
-        /* =========================
-           MAIN
-        ========================= */
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(56px, 9vw, 100px);
+            line-height: 0.95;
+            letter-spacing: -5px;
+            background: linear-gradient(180deg, #ffffff 0%, #b7cced 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span {
+            color: var(--blue);
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 24px auto 0;
+            color: #aab7ca;
+            font-size: clamp(18px, 2.5vw, 22px);
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            min-height: 50px;
+            padding: 0 19px;
+            border-radius: 13px;
+            border: 1px solid var(--border);
+            transition: 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(180deg, #5f98fa, #467edc);
+            border-color: rgba(168, 203, 255, 0.25);
+            color: white;
+            box-shadow: 0 12px 30px rgba(54, 110, 207, 0.20);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 36px rgba(54, 110, 207, 0.28);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.04);
+            color: #dfe7f3;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.07);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #74839a;
+            font-size: 12px;
+            letter-spacing: 0.8px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translate(-50%, 0);
+            }
+            50% {
+                transform: translate(-50%, 7px);
+            }
+        }
+
+        /* MAIN */
 
         main {
-            max-width: 1000px;
+            position: relative;
+            z-index: 2;
+            max-width: 1180px;
             margin: auto;
-            padding: 60px 20px;
+            padding: 0 20px 90px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            margin: 0 0 18px;
+            font-size: 30px;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            margin: -4px 0 22px;
+            color: var(--muted);
         }
 
         .card {
-            background: #111b2e;
-            border: 1px solid #1e2d46;
-            padding: 32px;
-            border-radius: 18px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .card h2 {
-            margin-top: 0;
-            margin-bottom: 18px;
-            font-size: 25px;
+            background: linear-gradient(
+                180deg,
+                rgba(17, 29, 49, 0.80),
+                rgba(12, 22, 38, 0.80)
+            );
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .card p {
-            color: #c0c9d8;
+            color: #bac5d6;
         }
 
-        /* =========================
-           FEATURES
-        ========================= */
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 70px;
+        }
+
+        .stat {
+            padding: 22px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: rgba(12, 22, 38, 0.76);
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 3px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* FEATURES */
 
         .features {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 25px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
         }
 
         .feature {
-            padding: 18px;
-            background: #0d1728;
-            border: 1px solid #1e2d46;
-            border-radius: 12px;
-            transition: 0.2s;
+            min-height: 180px;
+            padding: 22px;
+            border-radius: 17px;
+            background: rgba(10, 19, 33, 0.82);
+            border: 1px solid var(--border);
+            transition: 0.25s ease;
         }
 
         .feature:hover {
-            transform: translateY(-3px);
-            border-color: #315b9b;
+            transform: translateY(-5px);
+            background: var(--card-hover);
+            border-color: var(--border-strong);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.22);
+        }
+
+        .feature-icon {
+            font-size: 26px;
+            margin-bottom: 16px;
         }
 
         .feature strong {
             display: block;
-            margin-bottom: 5px;
-            color: #ffffff;
+            margin-bottom: 8px;
+            font-size: 16px;
         }
 
         .feature span {
-            color: #9daabd;
-            font-size: 14px;
+            display: block;
+            color: #95a3b7;
+            font-size: 13px;
         }
 
-        /* =========================
-           LEGAL LINKS
-        ========================= */
+        /* WORKFLOW */
 
-        .legal-links {
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .workflow-item {
+            position: relative;
+            padding: 25px;
+            border-radius: 18px;
+            background: rgba(13, 24, 42, 0.84);
+            border: 1px solid var(--border);
+        }
+
+        .workflow-number {
+            font-size: 12px;
+            color: #8eb7ff;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .workflow-item h3 {
+            margin: 12px 0 7px;
+        }
+
+        .workflow-item p {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        /* FAQ */
+
+        .faq {
+            display: grid;
+            gap: 11px;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(12, 22, 38, 0.70);
+        }
+
+        .faq-question {
+            width: 100%;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
             gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
+            padding: 20px;
+            background: none;
+            border: 0;
+            color: white;
+            text-align: left;
+            cursor: pointer;
+            font-weight: 700;
         }
 
-        .legal-link {
-            display: inline-block;
-            padding: 12px 18px;
-            border-radius: 10px;
-            background: #172640;
-            border: 1px solid #29446b;
-            color: #8db9ff;
+        .faq-question .plus {
+            color: var(--blue);
+            font-size: 22px;
             transition: 0.2s;
         }
 
-        .legal-link:hover {
-            background: #203656;
-            text-decoration: none;
-            transform: translateY(-2px);
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
         }
 
-        /* =========================
-           FOOTER
-        ========================= */
+        .faq-answer p {
+            margin: 0;
+            padding: 0 20px 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 180px;
+        }
+
+        .faq-item.open .plus {
+            transform: rotate(45deg);
+        }
+
+        /* LEGAL */
+
+        .legal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .legal-card {
+            padding: 25px;
+            border-radius: 18px;
+            background: rgba(11, 21, 37, 0.85);
+            border: 1px solid var(--border);
+            transition: 0.2s ease;
+        }
+
+        .legal-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--border-strong);
+        }
+
+        .legal-card h3 {
+            margin: 0 0 8px;
+        }
+
+        .legal-card p {
+            margin-bottom: 18px;
+            font-size: 13px;
+        }
+
+        .legal-link {
+            color: var(--blue);
+            font-weight: 700;
+        }
+
+        /* REVEAL */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* FOOTER */
 
         footer {
+            border-top: 1px solid var(--border);
+            background: rgba(5, 10, 18, 0.92);
+            padding: 34px 20px;
             text-align: center;
-            padding: 35px 20px;
-            color: #7f8da3;
-            border-top: 1px solid #1a2940;
-            background: #080e18;
+            color: #758399;
         }
 
-        footer p {
-            margin: 5px 0;
+        footer strong {
+            color: #c9d4e5;
         }
 
         footer a {
-            color: #6ea8fe;
-            text-decoration: none;
+            color: #88b4ff;
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        /* MOBILE */
+
+        @media (max-width: 950px) {
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 700px) {
-
-            header {
-                min-height: 380px;
-                padding: 90px 20px 60px;
+        @media (max-width: 760px) {
+            .navbar {
+                padding: 10px 12px;
             }
 
-            .logo {
-                width: 60px;
-                height: 60px;
-                top: 18px;
-                right: 18px;
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 9px;
+                background: rgba(8, 15, 28, 0.95);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                backdrop-filter: blur(18px);
             }
 
-            .header-content h1 {
-                font-size: 45px;
+            .nav-links.open {
+                display: flex;
             }
 
-            .header-content p {
-                font-size: 17px;
+            .nav-links a {
+                padding: 12px;
             }
 
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero {
+                min-height: 760px;
+                padding-top: 145px;
+            }
+
+            .hero-logo {
+                width: 95px;
+                height: 95px;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .stats,
+            .workflow,
+            .legal-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
             main {
-                padding: 40px 15px;
-            }
-
-            .card {
-                padding: 24px;
+                padding-left: 14px;
+                padding-right: 14px;
             }
 
             .features {
                 grid-template-columns: 1fr;
             }
 
-            .legal-links {
+            .card {
+                padding: 23px;
+            }
+
+            .hero-actions {
                 flex-direction: column;
             }
 
-            .legal-link {
-                text-align: center;
+            .btn {
+                width: 100%;
             }
         }
     </style>
@@ -265,189 +688,449 @@
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================= -->
+    <div class="progress" id="progress"></div>
 
-    <header>
+    <nav class="navbar">
+        <a href="#top" class="brand">
+            <img src="Connectix logo.png" alt="Logo Connectix">
+            <div class="brand-text">
+                <strong>Connectix</strong>
+                <span>Gabianas Studio</span>
+            </div>
+        </a>
 
-        <img
-            src="Connectix-logo.png"
-            alt="Logo Connectix"
-            class="logo"
-        >
+        <div class="nav-links" id="navLinks">
+            <a href="#about">À propos</a>
+            <a href="#features">Fonctionnalités</a>
+            <a href="#faq">FAQ</a>
+            <a href="#legal">Légal</a>
+        </div>
 
-        <div class="header-content">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Ouvrir le menu">
+            ☰
+        </button>
+    </nav>
+
+    <header class="hero" id="top">
+        <div class="hero-orb one"></div>
+        <div class="hero-orb two"></div>
+
+        <div class="hero-content">
+
+            <img
+                src="Connectix logo.png"
+                alt="Logo Connectix"
+                class="hero-logo"
+            >
 
             <div class="badge">
-                🤖 Discord Bot
+                <span class="status-dot"></span>
+                Discord Bot
             </div>
 
-            <h1>Connectix</h1>
+            <h1>Connect<span>ix</span></h1>
 
             <p>
-                Gestion d'activité pour serveurs Discord RP
+                La gestion d'activité pensée pour les serveurs
+                Discord RP modernes.
             </p>
+
+            <div class="hero-actions">
+                <a href="#features" class="btn btn-primary">
+                    Découvrir Connectix →
+                </a>
+
+                <a href="#legal" class="btn btn-secondary">
+                    Informations légales
+                </a>
+            </div>
 
         </div>
 
+        <div class="hero-scroll">
+            ↓ FAITES DÉFILER
+        </div>
     </header>
-
-
-    <!-- =========================
-         CONTENU
-    ========================= -->
 
     <main>
 
-        <!-- À PROPOS -->
+        <section class="section reveal" id="about">
 
-        <div class="card">
+            <div class="card">
+                <h2 class="section-title">Une gestion simple et efficace.</h2>
 
-            <h2>🤖 À propos de Connectix</h2>
+                <p>
+                    Connectix est un bot Discord développé par
+                    <strong>Gabianas Studio</strong> pour faciliter le suivi
+                    de l'activité sur les serveurs RP.
+                </p>
 
-            <p>
-                Connectix est un bot Discord dédié au suivi et à la
-                gestion de l'activité des membres sur les serveurs RP.
+                <p>
+                    Connexions, déconnexions, sessions, statistiques,
+                    administration et journaux : les principales opérations
+                    sont regroupées directement dans Discord.
+                </p>
+            </div>
+
+        </section>
+
+        <section class="stats reveal">
+
+            <div class="stat">
+                <span class="stat-value">24/7</span>
+                <span class="stat-label">Fonctionnement automatisé</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-value">H24</span>
+                <span class="stat-label">Suivi des sessions</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-value">100%</span>
+                <span class="stat-label">Depuis Discord</span>
+            </div>
+
+        </section>
+
+        <section class="section reveal" id="features">
+
+            <h2 class="section-title">Fonctionnalités</h2>
+            <p class="section-subtitle">
+                Tout ce dont un serveur RP a besoin pour suivre son activité.
             </p>
-
-            <p>
-                Il permet notamment de gérer les connexions,
-                déconnexions, sessions, statistiques et opérations
-                administratives directement depuis Discord.
-            </p>
-
-        </div>
-
-
-        <!-- FONCTIONNALITÉS -->
-
-        <div class="card">
-
-            <h2>⚙️ Fonctionnalités</h2>
 
             <div class="features">
 
                 <div class="feature">
-                    <strong>🟢 Connexion / déconnexion</strong>
+                    <div class="feature-icon">🟢</div>
+                    <strong>Connexion / déconnexion</strong>
                     <span>
-                        Gérez facilement les débuts et fins de sessions.
+                        Enregistrez facilement le début et la fin
+                        d'une session.
                     </span>
                 </div>
 
                 <div class="feature">
-                    <strong>⏱️ Sessions en temps réel</strong>
+                    <div class="feature-icon">⏱️</div>
+                    <strong>Sessions en temps réel</strong>
                     <span>
-                        Consultez les membres actuellement en activité.
+                        Visualisez rapidement les membres actuellement
+                        connectés.
                     </span>
                 </div>
 
                 <div class="feature">
-                    <strong>📊 Statistiques</strong>
+                    <div class="feature-icon">📊</div>
+                    <strong>Statistiques</strong>
                     <span>
-                        Suivez les connexions et le temps d'activité.
+                        Consultez les connexions et le temps d'activité
+                        enregistré.
                     </span>
                 </div>
 
                 <div class="feature">
-                    <strong>🛠️ Gestion administrative</strong>
+                    <div class="feature-icon">🛠️</div>
+                    <strong>Administration</strong>
                     <span>
-                        Ajoutez, supprimez ou forcez des connexions.
+                        Gérez certaines connexions et actions
+                        directement depuis Discord.
                     </span>
                 </div>
 
                 <div class="feature">
-                    <strong>🔐 Permissions</strong>
+                    <div class="feature-icon">🔐</div>
+                    <strong>Permissions</strong>
                     <span>
-                        Contrôlez l'accès aux commandes administratives.
+                        Réservez les commandes sensibles aux rôles
+                        autorisés.
                     </span>
                 </div>
 
                 <div class="feature">
-                    <strong>📝 Journal des événements</strong>
+                    <div class="feature-icon">📝</div>
+                    <strong>Journal des événements</strong>
                     <span>
-                        Conservez un historique des actions importantes.
+                        Conservez un historique des principales actions
+                        effectuées.
                     </span>
                 </div>
 
                 <div class="feature">
-                    <strong>🔧 Mode maintenance</strong>
+                    <div class="feature-icon">🔧</div>
+                    <strong>Maintenance</strong>
                     <span>
-                        Suspendez temporairement le système proprement.
+                        Mettez temporairement le système en maintenance
+                        lorsque cela est nécessaire.
                     </span>
                 </div>
 
                 <div class="feature">
-                    <strong>📩 Notifications privées</strong>
+                    <div class="feature-icon">📩</div>
+                    <strong>Notifications privées</strong>
                     <span>
-                        Informez automatiquement les membres concernés.
+                        Informez automatiquement les membres concernés
+                        par certaines actions.
                     </span>
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
+        <section class="section reveal">
 
-        <!-- INFORMATIONS LÉGALES -->
+            <h2 class="section-title">Comment ça fonctionne ?</h2>
 
-        <div class="card">
+            <div class="workflow">
 
-            <h2>📄 Informations légales</h2>
+                <div class="workflow-item">
+                    <div class="workflow-number">01 — CONFIGURER</div>
+                    <h3>Adaptez Connectix</h3>
+                    <p>
+                        Définissez les salons, permissions et paramètres
+                        nécessaires à votre serveur.
+                    </p>
+                </div>
 
-            <p>
-                Consultez les documents officiels relatifs à
-                l'utilisation et à la confidentialité de Connectix.
-            </p>
+                <div class="workflow-item">
+                    <div class="workflow-number">02 — UTILISER</div>
+                    <h3>Lancez vos sessions</h3>
+                    <p>
+                        Les membres utilisent les commandes prévues pour
+                        enregistrer leur activité.
+                    </p>
+                </div>
 
-            <div class="legal-links">
-
-                <a
-                    href="terms.html"
-                    class="legal-link"
-                >
-                    📜 Conditions d'utilisation
-                </a>
-
-                <a
-                    href="privacy.html"
-                    class="legal-link"
-                >
-                    🔒 Politique de confidentialité
-                </a>
+                <div class="workflow-item">
+                    <div class="workflow-number">03 — SUIVRE</div>
+                    <h3>Consultez les données</h3>
+                    <p>
+                        Retrouvez les sessions et les événements directement
+                        dans Discord.
+                    </p>
+                </div>
 
             </div>
 
-        </div>
+        </section>
+
+        <section class="section reveal" id="faq">
+
+            <h2 class="section-title">Questions fréquentes</h2>
+
+            <div class="faq">
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Connectix est-il un bot Discord ?
+                        <span class="plus">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Oui. Connectix est conçu pour fonctionner
+                            directement au sein des serveurs Discord.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        À quoi sert Connectix ?
+                        <span class="plus">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Il permet principalement de gérer et suivre
+                            l'activité des membres, notamment au travers
+                            de sessions de connexion et de déconnexion.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Quelles données sont utilisées ?
+                        <span class="plus">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Certaines informations nécessaires au
+                            fonctionnement du bot peuvent être traitées.
+                            Consultez la politique de confidentialité
+                            pour plus de détails.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Où trouver les documents légaux ?
+                        <span class="plus">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Les conditions d'utilisation et la politique
+                            de confidentialité sont accessibles dans la
+                            section légale du site.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="section reveal" id="legal">
+
+            <h2 class="section-title">Informations légales</h2>
+
+            <div class="legal-grid">
+
+                <div class="legal-card">
+                    <h3>📜 Conditions d'utilisation</h3>
+
+                    <p>
+                        Consultez les règles applicables à l'utilisation
+                        de Connectix.
+                    </p>
+
+                    <a class="legal-link" href="terms.html">
+                        Lire les conditions →
+                    </a>
+                </div>
+
+                <div class="legal-card">
+                    <h3>🔒 Politique de confidentialité</h3>
+
+                    <p>
+                        Découvrez quelles informations peuvent être
+                        traitées et dans quel but.
+                    </p>
+
+                    <a class="legal-link" href="privacy.html">
+                        Lire la politique →
+                    </a>
+                </div>
+
+            </div>
+
+        </section>
 
     </main>
 
-
-    <!-- =========================
-         FOOTER
-    ========================= -->
-
     <footer>
-
         <p>
-            © 2026 Gabianas Studio — Connectix
+            <strong>Connectix</strong> · Développé par Gabianas Studio
         </p>
 
         <p>
-
-            <a href="terms.html">
-                Conditions d'utilisation
-            </a>
-
-            &nbsp;•&nbsp;
-
-            <a href="privacy.html">
-                Politique de confidentialité
-            </a>
-
+            <a href="terms.html">Conditions d'utilisation</a>
+            &nbsp; · &nbsp;
+            <a href="privacy.html">Politique de confidentialité</a>
         </p>
 
+        <p>© 2026 Gabianas Studio</p>
     </footer>
+
+    <script>
+        /* MENU MOBILE */
+
+        const mobileMenu = document.getElementById("mobileMenu");
+        const navLinks = document.getElementById("navLinks");
+
+        mobileMenu.addEventListener("click", () => {
+            navLinks.classList.toggle("open");
+        });
+
+        navLinks.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("open");
+            });
+        });
+
+        /* BARRE DE PROGRESSION */
+
+        const progress = document.getElementById("progress");
+
+        window.addEventListener("scroll", () => {
+            const scrollTop = window.scrollY;
+            const height =
+                document.documentElement.scrollHeight -
+                document.documentElement.clientHeight;
+
+            const percent = height > 0
+                ? (scrollTop / height) * 100
+                : 0;
+
+            progress.style.width = percent + "%";
+        });
+
+        /* APPARITION DES SECTIONS */
+
+        const revealElements = document.querySelectorAll(".reveal");
+
+        const observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+        revealElements.forEach(element => observer.observe(element));
+
+        /* FAQ */
+
+        document.querySelectorAll(".faq-question").forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                const item = button.parentElement;
+
+                document.querySelectorAll(".faq-item").forEach(other => {
+                    if (other !== item) {
+                        other.classList.remove("open");
+                    }
+                });
+
+                item.classList.toggle("open");
+            });
+
+        });
+
+        /* NAVIGATION ACTIVE */
+
+        const sections = document.querySelectorAll("main section[id]");
+        const navAnchors = document.querySelectorAll(".nav-links a");
+
+        window.addEventListener("scroll", () => {
+
+            let current = "";
+
+            sections.forEach(section => {
+                const top = section.offsetTop - 180;
+
+                if (window.scrollY >= top) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navAnchors.forEach(link => {
+                link.classList.remove("active");
+
+                if (link.getAttribute("href") === "#" + current) {
+                    link.classList.add("active");
+                }
+            });
+
+        });
+    </script>
 
 </body>
 </html>
