@@ -1,373 +1,467 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Connectix — Politique de confidentialité</title>
+    <title>Connectix — Politique de confidentialité</title>
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        background: #0b1220;
-        color: #f5f7fa;
-        line-height: 1.7;
-    }
-
-    header {
-        position: relative;
-        min-height: 300px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 70px 25px;
-        background:
-            radial-gradient(
-                circle at center,
-                #172640 0%,
-                #111b2e 45%,
-                #0b1220 100%
-            );
-        border-bottom: 1px solid #24344f;
-        overflow: hidden;
-    }
-
-    header::before {
-        content: "";
-        position: absolute;
-        width: 450px;
-        height: 450px;
-        background: #315b9b;
-        opacity: 0.08;
-        border-radius: 50%;
-        filter: blur(100px);
-    }
-
-    .logo {
-        position: absolute;
-        top: 25px;
-        right: 30px;
-        width: 80px;
-        height: 80px;
-        object-fit: contain;
-        z-index: 2;
-    }
-
-    .header-content {
-        position: relative;
-        z-index: 1;
-        max-width: 800px;
-    }
-
-    .badge {
-        display: inline-block;
-        margin-bottom: 18px;
-        padding: 7px 15px;
-        border-radius: 999px;
-        background: #172640;
-        border: 1px solid #29446b;
-        color: #8db9ff;
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-    h1 {
-        margin: 0;
-        font-size: 46px;
-    }
-
-    .subtitle {
-        margin-top: 12px;
-        color: #aeb9ca;
-        font-size: 18px;
-    }
-
-    main {
-        max-width: 950px;
-        margin: auto;
-        padding: 55px 20px;
-    }
-
-    .card {
-        background: #111b2e;
-        border: 1px solid #1e2d46;
-        padding: 30px;
-        border-radius: 18px;
-        margin-bottom: 22px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    }
-
-    h2 {
-        margin-top: 0;
-        color: #ffffff;
-        font-size: 23px;
-    }
-
-    p {
-        color: #c0c9d8;
-    }
-
-    ul {
-        color: #c0c9d8;
-    }
-
-    li {
-        margin-bottom: 8px;
-    }
-
-    a {
-        color: #6ea8fe;
-        text-decoration: none;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
-
-    .back {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 12px 18px;
-        border-radius: 10px;
-        background: #172640;
-        border: 1px solid #29446b;
-        color: #8db9ff;
-    }
-
-    .back:hover {
-        background: #203656;
-        text-decoration: none;
-    }
-
-    footer {
-        text-align: center;
-        padding: 35px 20px;
-        color: #7f8da3;
-        border-top: 1px solid #1a2940;
-        background: #080e18;
-    }
-
-    @media (max-width: 700px) {
-        header {
-            min-height: 270px;
-            padding: 75px 20px 50px;
+    <style>
+        :root {
+            --bg: #070d18;
+            --card: rgba(16, 28, 48, 0.80);
+            --border: rgba(117, 158, 220, 0.18);
+            --border-strong: rgba(117, 158, 220, 0.34);
+            --text: #f7f9fc;
+            --muted: #a4b0c2;
+            --blue: #76a9ff;
         }
 
-        .logo {
-            width: 60px;
-            height: 60px;
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at 15% 0%, rgba(62,119,212,0.10), transparent 28%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #76a9ff, #b2d0ff);
+            z-index: 1000;
+        }
+
+        .navbar {
+            position: fixed;
             top: 18px;
-            right: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1100px, calc(100% - 28px));
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 11px 15px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            background: rgba(8, 15, 28, 0.76);
+            backdrop-filter: blur(18px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        .brand strong {
+            font-size: 14px;
+        }
+
+        .brand span {
+            display: block;
+            color: #8997ab;
+            font-size: 11px;
+        }
+
+        .home-link {
+            padding: 9px 13px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            color: #b7c9e7;
+            transition: 0.2s;
+        }
+
+        .home-link:hover {
+            background: rgba(118,169,255,0.10);
+        }
+
+        header {
+            min-height: 410px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 20px 80px;
+            background:
+                radial-gradient(circle at center, #16243d 0%, #0e192b 48%, #070d18 100%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        header img {
+            width: 92px;
+            height: 92px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-bottom: 17px;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: rgba(48, 85, 143, 0.20);
+            border: 1px solid var(--border-strong);
+            color: #a8c5ff;
+            font-size: 13px;
+            font-weight: 700;
         }
 
         h1 {
-            font-size: 35px;
+            margin: 0;
+            font-size: clamp(38px, 7vw, 60px);
+            letter-spacing: -2px;
         }
 
-        .subtitle {
-            font-size: 16px;
+        header p {
+            color: var(--muted);
+            margin: 15px 0 0;
         }
 
         main {
-            padding: 40px 15px;
+            max-width: 950px;
+            margin: auto;
+            padding: 60px 20px 80px;
+        }
+
+        .notice {
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            background: rgba(17, 31, 53, 0.72);
+            color: #c9d5e7;
         }
 
         .card {
-            padding: 24px;
+            margin-bottom: 18px;
+            padding: 28px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.20);
         }
-    }
-</style>
-```
 
+        .card h2 {
+            margin-top: 0;
+            font-size: 23px;
+        }
+
+        .card p,
+        .card li {
+            color: #b4c0d2;
+        }
+
+        .card li {
+            margin-bottom: 7px;
+        }
+
+        .data-list {
+            display: grid;
+            gap: 9px;
+            margin-top: 18px;
+        }
+
+        .data-item {
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(117,158,220,0.12);
+            background: rgba(5, 12, 23, 0.42);
+            color: #b8c4d6;
+        }
+
+        .data-item strong {
+            display: block;
+            color: #edf3fd;
+            margin-bottom: 3px;
+        }
+
+        .back {
+            display: inline-flex;
+            margin-top: 10px;
+            padding: 12px 17px;
+            border-radius: 11px;
+            background: rgba(118,169,255,0.08);
+            border: 1px solid var(--border-strong);
+            color: var(--blue);
+        }
+
+        footer {
+            padding: 35px 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: #77859a;
+            background: #050a12;
+        }
+
+        footer a {
+            color: var(--blue);
+        }
+
+        @media (max-width: 650px) {
+            .brand span {
+                display: none;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            .home-link {
+                font-size: 13px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-```
-<header>
+    <div class="progress" id="progress"></div>
 
-    <img
-        src="Connectix-logo.png"
-        alt="Logo Connectix"
-        class="logo"
-    >
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <img src="Connectix logo.png" alt="Logo Connectix">
 
-    <div class="header-content">
+            <div>
+                <strong>Connectix</strong>
+                <span>Gabianas Studio</span>
+            </div>
+        </a>
 
-        <div class="badge">
-            🔒 Document légal
+        <a href="index.html" class="home-link">
+            ← Accueil
+        </a>
+    </nav>
+
+    <header>
+
+        <div>
+
+            <img src="Connectix logo.png" alt="Logo Connectix">
+
+            <div class="badge">
+                🔒 DOCUMENT LÉGAL
+            </div>
+
+            <h1>Politique de confidentialité</h1>
+
+            <p>
+                Connectix · Gabianas Studio
+            </p>
+
         </div>
 
-        <h1>Politique de confidentialité</h1>
+    </header>
 
-        <div class="subtitle">
-            Connectix — Gabianas Studio
+    <main>
+
+        <div class="notice">
+            <strong>Dernière mise à jour :</strong> 4 octobre 2026
         </div>
 
-    </div>
+        <div class="card">
+            <h2>1. Introduction</h2>
 
-</header>
+            <p>
+                Cette politique explique quelles informations peuvent être
+                traitées par Connectix, dans quel but elles peuvent être
+                utilisées et dans quelles circonstances elles peuvent être
+                conservées.
+            </p>
+        </div>
 
-<main>
+        <div class="card">
+            <h2>2. Informations pouvant être traitées</h2>
 
-    <div class="card">
-        <h2>1. Introduction</h2>
+            <p>
+                Pour fournir ses fonctionnalités, Connectix peut traiter
+                certaines informations liées aux serveurs Discord sur
+                lesquels il est installé.
+            </p>
+
+            <div class="data-list">
+
+                <div class="data-item">
+                    <strong>👤 Identifiant Discord</strong>
+                    Identifiant de l'utilisateur nécessaire à l'association
+                    des actions et sessions.
+                </div>
+
+                <div class="data-item">
+                    <strong>🏠 Informations du serveur</strong>
+                    Identifiant et nom du serveur Discord concerné.
+                </div>
+
+                <div class="data-item">
+                    <strong>📍 Configuration</strong>
+                    Informations nécessaires au fonctionnement du bot,
+                    notamment certains identifiants de salons.
+                </div>
+
+                <div class="data-item">
+                    <strong>⏱️ Sessions</strong>
+                    Dates et heures de début et de fin ainsi que durée
+                    des sessions enregistrées.
+                </div>
+
+                <div class="data-item">
+                    <strong>📝 Journal</strong>
+                    Informations relatives à certaines actions
+                    administratives ou événements enregistrés.
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>3. Utilisation des informations</h2>
+
+            <p>
+                Les informations traitées servent notamment à fournir les
+                fonctions de suivi d'activité, calculer des durées,
+                afficher certaines statistiques, gérer les sessions,
+                appliquer des paramètres et conserver les journaux
+                nécessaires au fonctionnement du service.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>4. Conservation</h2>
+
+            <p>
+                Les informations peuvent être conservées pendant la durée
+                nécessaire au fonctionnement de Connectix et à la gestion
+                du serveur concerné.
+            </p>
+
+            <p>
+                Les modalités de conservation peuvent notamment dépendre
+                de la configuration du serveur et de l'utilisation du bot.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>5. Accès et partage</h2>
+
+            <p>
+                Connectix n'a pas pour objectif de vendre les informations
+                traitées.
+            </p>
+
+            <p>
+                Les informations nécessaires au fonctionnement du bot
+                peuvent être accessibles aux administrateurs autorisés
+                du serveur Discord concerné.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>6. Messages privés</h2>
+
+            <p>
+                Certaines fonctions peuvent envoyer des messages privés
+                Discord afin d'informer un utilisateur d'une action
+                concernant son activité ou une session.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>7. Sécurité</h2>
+
+            <p>
+                Des mesures raisonnables sont mises en œuvre afin de
+                protéger les informations utilisées par Connectix contre
+                les accès non autorisés et les utilisations abusives.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>8. Demandes concernant les données</h2>
+
+            <p>
+                Pour toute demande concernant les informations associées
+                à l'utilisation de Connectix, l'utilisateur peut contacter
+                Gabianas Studio par le moyen de contact mis à disposition
+                avec le service.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>9. Modifications</h2>
+
+            <p>
+                Cette politique peut être mise à jour lorsque le
+                fonctionnement de Connectix évolue ou lorsque les
+                obligations applicables changent.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>10. Contact</h2>
+
+            <p>
+                Pour toute question concernant cette politique de
+                confidentialité ou le traitement des informations par
+                Connectix, veuillez contacter Gabianas Studio par le moyen
+                de contact mis à disposition avec le service.
+            </p>
+        </div>
+
+        <a href="index.html" class="back">
+            ← Retour à Connectix
+        </a>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Gabianas Studio — Connectix</p>
 
         <p>
-            Cette politique explique quelles informations peuvent être
-            traitées par Connectix, pourquoi elles sont utilisées et
-            comment elles peuvent être conservées.
+            <a href="index.html">Accueil</a>
+            &nbsp; · &nbsp;
+            <a href="terms.html">Conditions d'utilisation</a>
         </p>
-    </div>
+    </footer>
 
-    <div class="card">
-        <h2>2. Informations pouvant être traitées</h2>
+    <script>
+        const progress = document.getElementById("progress");
 
-        <p>
-            Pour assurer son fonctionnement, Connectix peut traiter
-            certaines informations liées aux serveurs Discord sur
-            lesquels il est installé.
-        </p>
+        window.addEventListener("scroll", () => {
+            const total =
+                document.documentElement.scrollHeight -
+                document.documentElement.clientHeight;
 
-        <ul>
-            <li>Identifiant Discord de l'utilisateur</li>
-            <li>Identifiant du serveur Discord</li>
-            <li>Nom du serveur</li>
-            <li>Identifiants de certains salons Discord</li>
-            <li>Informations de configuration du serveur</li>
-            <li>Date et heure de début d'une session</li>
-            <li>Date et heure de fin d'une session</li>
-            <li>Durée des sessions</li>
-            <li>Historique des connexions enregistrées</li>
-            <li>Informations relatives à certaines actions administratives</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <h2>3. Utilisation des informations</h2>
-
-        <p>
-            Les informations traitées par Connectix servent notamment
-            à fournir ses fonctionnalités de gestion d'activité.
-        </p>
-
-        <p>
-            Elles peuvent être utilisées pour calculer des durées,
-            afficher des statistiques, gérer les sessions, appliquer
-            certaines restrictions et conserver les journaux nécessaires
-            au fonctionnement du bot.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>4. Conservation</h2>
-
-        <p>
-            Les données peuvent être conservées pendant la durée
-            nécessaire au fonctionnement de Connectix et aux besoins
-            de gestion du serveur concerné.
-        </p>
-
-        <p>
-            La durée de conservation peut notamment dépendre de la
-            configuration du serveur et de l'utilisation du bot.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>5. Partage des informations</h2>
-
-        <p>
-            Connectix n'a pas pour objectif de vendre les informations
-            traitées.
-        </p>
-
-        <p>
-            Les informations nécessaires au fonctionnement du bot
-            peuvent être accessibles aux administrateurs autorisés du
-            serveur Discord concerné.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>6. Messages privés</h2>
-
-        <p>
-            Certaines fonctionnalités de Connectix peuvent envoyer des
-            messages privés Discord afin d'informer un utilisateur
-            d'une action concernant son activité ou son compte sur
-            le serveur.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>7. Sécurité</h2>
-
-        <p>
-            Des mesures raisonnables sont mises en œuvre afin de
-            protéger les informations utilisées par Connectix contre
-            les accès non autorisés ou les utilisations abusives.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>8. Demande concernant les données</h2>
-
-        <p>
-            Pour toute demande concernant les informations associées
-            à l'utilisation de Connectix, l'utilisateur peut contacter
-            Gabianas Studio par le moyen de contact mis à disposition
-            avec le service.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>9. Modifications</h2>
-
-        <p>
-            Cette politique de confidentialité peut être mise à jour
-            lorsque le fonctionnement de Connectix évolue ou lorsque
-            les obligations applicables changent.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>10. Contact</h2>
-
-        <p>
-            Pour toute question relative à cette politique ou au
-            traitement des informations par Connectix, veuillez
-            contacter Gabianas Studio par le moyen de contact mis
-            à disposition avec le service.
-        </p>
-    </div>
-
-    <a href="index.html" class="back">
-        ← Retour à Connectix
-    </a>
-
-</main>
-
-<footer>
-    <p>
-        © 2026 Gabianas Studio — Connectix
-    </p>
-
-    <p>
-        <a href="index.html">Accueil</a>
-        &nbsp;•&nbsp;
-        <a href="terms.html">Conditions d'utilisation</a>
-    </p>
-</footer>
-```
+            progress.style.width =
+                total > 0
+                    ? (window.scrollY / total) * 100 + "%"
+                    : "0%";
+        });
+    </script>
 
 </body>
 </html>
