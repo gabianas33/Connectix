@@ -3,111 +3,451 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Connectix — Discord Bot</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             background: #0b1220;
             color: #f5f7fa;
+            line-height: 1.6;
         }
+
+        /* =========================
+           HEADER
+        ========================= */
 
         header {
-            padding: 70px 20px;
+            position: relative;
+            min-height: 430px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            background: #111b2e;
+            padding: 80px 25px;
+            background:
+                radial-gradient(
+                    circle at center,
+                    #172640 0%,
+                    #111b2e 45%,
+                    #0b1220 100%
+                );
+            border-bottom: 1px solid #24344f;
+            overflow: hidden;
         }
 
-        h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
+        header::before {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #315b9b;
+            opacity: 0.08;
+            border-radius: 50%;
+            filter: blur(100px);
         }
 
-        header p {
+        .logo {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            z-index: 2;
+        }
+
+        .header-content {
+            position: relative;
+            max-width: 750px;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 7px 15px;
+            border-radius: 999px;
+            background: #172640;
+            border: 1px solid #29446b;
+            color: #8db9ff;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .header-content h1 {
+            margin: 0;
+            font-size: 64px;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        .header-content p {
+            margin: 15px 0 0;
             color: #aeb9ca;
-            font-size: 18px;
+            font-size: 20px;
         }
+
+        /* =========================
+           MAIN
+        ========================= */
 
         main {
-            max-width: 900px;
+            max-width: 1000px;
             margin: auto;
-            padding: 50px 20px;
+            padding: 60px 20px;
         }
 
         .card {
             background: #111b2e;
-            padding: 30px;
-            border-radius: 16px;
+            border: 1px solid #1e2d46;
+            padding: 32px;
+            border-radius: 18px;
             margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
-        a {
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 25px;
+        }
+
+        .card p {
+            color: #c0c9d8;
+        }
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .feature {
+            padding: 18px;
+            background: #0d1728;
+            border: 1px solid #1e2d46;
+            border-radius: 12px;
+            transition: 0.2s;
+        }
+
+        .feature:hover {
+            transform: translateY(-3px);
+            border-color: #315b9b;
+        }
+
+        .feature strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+
+        .feature span {
+            color: #9daabd;
+            font-size: 14px;
+        }
+
+        /* =========================
+           LEGAL LINKS
+        ========================= */
+
+        .legal-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .legal-link {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 10px;
+            background: #172640;
+            border: 1px solid #29446b;
+            color: #8db9ff;
+            transition: 0.2s;
+        }
+
+        .legal-link:hover {
+            background: #203656;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            color: #7f8da3;
+            border-top: 1px solid #1a2940;
+            background: #080e18;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
             color: #6ea8fe;
             text-decoration: none;
         }
 
-        a:hover {
+        footer a:hover {
             text-decoration: underline;
         }
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #7f8da3;
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            header {
+                min-height: 380px;
+                padding: 90px 20px 60px;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+                top: 18px;
+                right: 18px;
+            }
+
+            .header-content h1 {
+                font-size: 45px;
+            }
+
+            .header-content p {
+                font-size: 17px;
+            }
+
+            main {
+                padding: 40px 15px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .legal-links {
+                flex-direction: column;
+            }
+
+            .legal-link {
+                text-align: center;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <h1>Connectix</h1>
-    <p>Gestion d'activité pour serveurs Discord RP</p>
-</header>
+    <!-- =========================
+         HEADER
+    ========================= -->
 
-<main>
+    <header>
 
-    <div class="card">
-        <h2>🤖 À propos de Connectix</h2>
+        <img
+            src="Connectix-logo.png"
+            alt="Logo Connectix"
+            class="logo"
+        >
+
+        <div class="header-content">
+
+            <div class="badge">
+                🤖 Discord Bot
+            </div>
+
+            <h1>Connectix</h1>
+
+            <p>
+                Gestion d'activité pour serveurs Discord RP
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         CONTENU
+    ========================= -->
+
+    <main>
+
+        <!-- À PROPOS -->
+
+        <div class="card">
+
+            <h2>🤖 À propos de Connectix</h2>
+
+            <p>
+                Connectix est un bot Discord dédié au suivi et à la
+                gestion de l'activité des membres sur les serveurs RP.
+            </p>
+
+            <p>
+                Il permet notamment de gérer les connexions,
+                déconnexions, sessions, statistiques et opérations
+                administratives directement depuis Discord.
+            </p>
+
+        </div>
+
+
+        <!-- FONCTIONNALITÉS -->
+
+        <div class="card">
+
+            <h2>⚙️ Fonctionnalités</h2>
+
+            <div class="features">
+
+                <div class="feature">
+                    <strong>🟢 Connexion / déconnexion</strong>
+                    <span>
+                        Gérez facilement les débuts et fins de sessions.
+                    </span>
+                </div>
+
+                <div class="feature">
+                    <strong>⏱️ Sessions en temps réel</strong>
+                    <span>
+                        Consultez les membres actuellement en activité.
+                    </span>
+                </div>
+
+                <div class="feature">
+                    <strong>📊 Statistiques</strong>
+                    <span>
+                        Suivez les connexions et le temps d'activité.
+                    </span>
+                </div>
+
+                <div class="feature">
+                    <strong>🛠️ Gestion administrative</strong>
+                    <span>
+                        Ajoutez, supprimez ou forcez des connexions.
+                    </span>
+                </div>
+
+                <div class="feature">
+                    <strong>🔐 Permissions</strong>
+                    <span>
+                        Contrôlez l'accès aux commandes administratives.
+                    </span>
+                </div>
+
+                <div class="feature">
+                    <strong>📝 Journal des événements</strong>
+                    <span>
+                        Conservez un historique des actions importantes.
+                    </span>
+                </div>
+
+                <div class="feature">
+                    <strong>🔧 Mode maintenance</strong>
+                    <span>
+                        Suspendez temporairement le système proprement.
+                    </span>
+                </div>
+
+                <div class="feature">
+                    <strong>📩 Notifications privées</strong>
+                    <span>
+                        Informez automatiquement les membres concernés.
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- INFORMATIONS LÉGALES -->
+
+        <div class="card">
+
+            <h2>📄 Informations légales</h2>
+
+            <p>
+                Consultez les documents officiels relatifs à
+                l'utilisation et à la confidentialité de Connectix.
+            </p>
+
+            <div class="legal-links">
+
+                <a
+                    href="terms.html"
+                    class="legal-link"
+                >
+                    📜 Conditions d'utilisation
+                </a>
+
+                <a
+                    href="privacy.html"
+                    class="legal-link"
+                >
+                    🔒 Politique de confidentialité
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
         <p>
-            Connectix est un bot Discord dédié au suivi et à la gestion
-            de l'activité des membres sur les serveurs RP.
+            © 2026 Gabianas Studio — Connectix
         </p>
+
         <p>
-            Il permet notamment de gérer les connexions, déconnexions,
-            sessions, statistiques et opérations administratives.
+
+            <a href="terms.html">
+                Conditions d'utilisation
+            </a>
+
+            &nbsp;•&nbsp;
+
+            <a href="privacy.html">
+                Politique de confidentialité
+            </a>
+
         </p>
-    </div>
 
-    <div class="card">
-        <h2>⚙️ Fonctionnalités</h2>
-        <ul>
-            <li>Connexion et déconnexion des membres</li>
-            <li>Suivi des sessions en temps réel</li>
-            <li>Statistiques d'activité</li>
-            <li>Gestion administrative</li>
-            <li>Permissions personnalisables</li>
-            <li>Journal des événements</li>
-            <li>Mode maintenance</li>
-            <li>Notifications privées</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <h2>📄 Informations légales</h2>
-        <p>
-            <a href="terms.html">Conditions d'utilisation</a>
-        </p>
-        <p>
-            <a href="privacy.html">Politique de confidentialité</a>
-        </p>
-    </div>
-
-</main>
-
-<footer>
-    © 2026 Gabianas Studio — Connectix
-</footer>
+    </footer>
 
 </body>
 </html>
