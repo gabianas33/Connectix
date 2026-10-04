@@ -1,185 +1,310 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conditions d'utilisation — Connectix</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0b1220;
-            color: #f5f7fa;
-            line-height: 1.7;
+
+```
+<title>Connectix — Conditions d'utilisation</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0b1220;
+        color: #f5f7fa;
+        line-height: 1.7;
+    }
+
+    header {
+        position: relative;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 70px 25px;
+        background:
+            radial-gradient(
+                circle at center,
+                #172640 0%,
+                #111b2e 45%,
+                #0b1220 100%
+            );
+        border-bottom: 1px solid #24344f;
+        overflow: hidden;
+    }
+
+    header::before {
+        content: "";
+        position: absolute;
+        width: 450px;
+        height: 450px;
+        background: #315b9b;
+        opacity: 0.08;
+        border-radius: 50%;
+        filter: blur(100px);
+    }
+
+    .logo {
+        position: absolute;
+        top: 25px;
+        right: 30px;
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        z-index: 2;
+    }
+
+    .header-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+    }
+
+    .badge {
+        display: inline-block;
+        margin-bottom: 18px;
+        padding: 7px 15px;
+        border-radius: 999px;
+        background: #172640;
+        border: 1px solid #29446b;
+        color: #8db9ff;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 46px;
+    }
+
+    .subtitle {
+        margin-top: 12px;
+        color: #aeb9ca;
+        font-size: 18px;
+    }
+
+    main {
+        max-width: 950px;
+        margin: auto;
+        padding: 55px 20px;
+    }
+
+    .card {
+        background: #111b2e;
+        border: 1px solid #1e2d46;
+        padding: 30px;
+        border-radius: 18px;
+        margin-bottom: 22px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+        margin-top: 0;
+        color: #ffffff;
+        font-size: 23px;
+    }
+
+    p {
+        color: #c0c9d8;
+    }
+
+    a {
+        color: #6ea8fe;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .back {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 12px 18px;
+        border-radius: 10px;
+        background: #172640;
+        border: 1px solid #29446b;
+        color: #8db9ff;
+    }
+
+    .back:hover {
+        background: #203656;
+        text-decoration: none;
+    }
+
+    footer {
+        text-align: center;
+        padding: 35px 20px;
+        color: #7f8da3;
+        border-top: 1px solid #1a2940;
+        background: #080e18;
+    }
+
+    @media (max-width: 700px) {
+        header {
+            min-height: 270px;
+            padding: 75px 20px 50px;
         }
 
-        header {
-            padding: 50px 20px;
-            text-align: center;
-            background: #111b2e;
+        .logo {
+            width: 60px;
+            height: 60px;
+            top: 18px;
+            right: 18px;
+        }
+
+        h1 {
+            font-size: 35px;
+        }
+
+        .subtitle {
+            font-size: 16px;
         }
 
         main {
-            max-width: 900px;
-            margin: auto;
-            padding: 40px 20px;
+            padding: 40px 15px;
         }
 
-        section {
-            background: #111b2e;
-            padding: 25px;
-            border-radius: 14px;
-            margin-bottom: 20px;
+        .card {
+            padding: 24px;
         }
+    }
+</style>
+```
 
-        h1, h2 {
-            color: #ffffff;
-        }
-
-        a {
-            color: #6ea8fe;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #7f8da3;
-        }
-    </style>
 </head>
 
 <body>
 
+```
 <header>
-    <h1>Conditions d'utilisation</h1>
-    <p>Connectix — Gabianas Studio</p>
+
+    <img
+        src="Connectix-logo.png"
+        alt="Logo Connectix"
+        class="logo"
+    >
+
+    <div class="header-content">
+
+        <div class="badge">
+            📜 Document légal
+        </div>
+
+        <h1>Conditions d'utilisation</h1>
+
+        <div class="subtitle">
+            Connectix — Gabianas Studio
+        </div>
+
+    </div>
+
 </header>
 
 <main>
 
-<section>
-    <h2>1. Présentation</h2>
-    <p>
-        Connectix est un bot Discord développé par Gabianas Studio.
-        Il fournit des fonctionnalités de gestion et de suivi de
-        l'activité des membres sur les serveurs Discord, notamment
-        pour les serveurs utilisant un système d'activité ou de service.
-    </p>
-</section>
+    <div class="card">
+        <h2>1. Présentation</h2>
 
-<section>
-    <h2>2. Acceptation des conditions</h2>
-    <p>
-        En ajoutant ou en utilisant Connectix sur un serveur Discord,
-        les utilisateurs et administrateurs du serveur acceptent
-        les présentes Conditions d'utilisation.
-    </p>
+        <p>
+            Connectix est un bot Discord développé par Gabianas Studio.
+            Il est destiné notamment à la gestion et au suivi de
+            l'activité des membres sur des serveurs Discord, notamment
+            dans le cadre de communautés RP.
+        </p>
+    </div>
 
-    <p>
-        Si vous n'acceptez pas ces conditions, vous devez cesser
-        d'utiliser Connectix et retirer le bot de votre serveur.
-    </p>
-</section>
+    <div class="card">
+        <h2>2. Acceptation</h2>
 
-<section>
-    <h2>3. Utilisation du service</h2>
-    <p>
-        Connectix doit être utilisé conformément aux
-        Conditions d'utilisation, aux Règles de la communauté
-        et aux politiques de la plateforme Discord.
-    </p>
+        <p>
+            L'utilisation de Connectix implique l'acceptation des
+            présentes conditions d'utilisation.
+        </p>
 
-    <p>
-        L'utilisation de Connectix à des fins illégales,
-        frauduleuses ou abusives est interdite.
-    </p>
-</section>
+        <p>
+            Si vous n'acceptez pas ces conditions, vous ne devez pas
+            utiliser Connectix.
+        </p>
+    </div>
 
-<section>
-    <h2>4. Fonctionnement</h2>
-    <p>
-        Connectix permet notamment de gérer les connexions,
-        déconnexions, sessions, statistiques, opérations
-        administratives, permissions, journaux d'événements
-        et fonctionnalités de maintenance.
-    </p>
+    <div class="card">
+        <h2>3. Utilisation du service</h2>
 
-    <p>
-        Les fonctionnalités disponibles peuvent évoluer,
-        être modifiées ou supprimées afin d'améliorer le service.
-    </p>
-</section>
+        <p>
+            Connectix doit être utilisé conformément aux règles de
+            Discord ainsi qu'aux lois et réglementations applicables.
+        </p>
 
-<section>
-    <h2>5. Disponibilité</h2>
-    <p>
-        Gabianas Studio met en œuvre des moyens raisonnables
-        pour maintenir Connectix disponible, mais ne garantit
-        pas un fonctionnement continu ou sans interruption.
-    </p>
+        <p>
+            L'utilisateur s'engage à ne pas utiliser Connectix à des
+            fins illégales, frauduleuses, abusives ou susceptibles de
+            perturber le fonctionnement du service.
+        </p>
+    </div>
 
-    <p>
-        Des interruptions peuvent notamment être causées par
-        des problèmes techniques, une maintenance, Discord,
-        l'hébergement ou des événements indépendants de notre volonté.
-    </p>
-</section>
+    <div class="card">
+        <h2>4. Fonctionnalités</h2>
 
-<section>
-    <h2>6. Responsabilité</h2>
-    <p>
-        Les administrateurs des serveurs sont responsables de
-        l'utilisation de Connectix sur leur serveur et de la
-        configuration des fonctionnalités proposées.
-    </p>
+        <p>
+            Selon sa configuration, Connectix peut permettre notamment
+            de gérer les connexions, déconnexions, sessions, statistiques,
+            opérations administratives, permissions et journaux
+            d'événements.
+        </p>
 
-    <p>
-        Gabianas Studio ne peut pas être tenu responsable des
-        décisions prises par les administrateurs à partir des
-        informations fournies par Connectix.
-    </p>
-</section>
+        <p>
+            Les fonctionnalités disponibles peuvent évoluer,
+            être modifiées ou être supprimées à tout moment.
+        </p>
+    </div>
 
-<section>
-    <h2>7. Données</h2>
-    <p>
-        Connectix peut traiter certaines données nécessaires à
-        son fonctionnement, notamment des identifiants Discord,
-        des informations relatives aux serveurs et des données
-        concernant les sessions d'activité.
-    </p>
+    <div class="card">
+        <h2>5. Disponibilité</h2>
 
-    <p>
-        Pour plus d'informations, consultez notre
-        <a href="privacy.html">Politique de confidentialité</a>.
-    </p>
-</section>
+        <p>
+            Gabianas Studio met en œuvre des moyens raisonnables afin
+            de maintenir Connectix disponible.
+        </p>
 
-<section>
-    <h2>8. Modification des conditions</h2>
-    <p>
-        Gabianas Studio peut modifier ces Conditions d'utilisation
-        lorsque cela est nécessaire. Les modifications seront
-        publiées sur cette page.
-    </p>
-</section>
+        <p>
+            Toutefois, aucune disponibilité permanente ou absence
+            totale d'interruption ne peut être garantie.
+        </p>
+    </div>
 
-<section>
-    <h2>9. Contact</h2>
-    <p>
-        Pour toute question concernant Connectix, vous pouvez
-        contacter Gabianas Studio par l'intermédiaire des moyens
-        de support mis à disposition par le projet.
-    </p>
-</section>
+    <div class="card">
+        <h2>6. Responsabilité</h2>
 
-</main>
+        <p>
+            L'administrateur du serveur Discord reste responsable de
+            la configuration et de l'utilisation de Connectix sur
+            son serveur.
+        </p>
 
-<footer>
-    © 2026 Gabianas Studio — Connectix
-    <br>
-    <a href="index.html">Retour à l'accueil</a>
-</footer>
+        <p>
+            Gabianas Studio ne peut être tenu responsable des décisions
+            prises par les administrateurs d'un serveur à partir des
+            informations fournies par le bot.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>7. Données</h2>
+
+        <p>
+            Connectix peut traiter certaines informations nécessaires
+            à son fonctionnement. Les informations relatives au
+            traitement des données sont détaillées dans la
+            <a h
+```
 
 </body>
 </html>
